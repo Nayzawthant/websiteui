@@ -20,8 +20,8 @@ const Headerss = ({ setSearch }) => {
         <div className="mainnavcontainer">
             <div className="mainnav">
                 <nav className="nav">
-                    <div>
-                        <h1>ANyarTharSports</h1>
+                    <div className='header-main-img'>
+                        <img src="https://tse1.mm.bing.net/th?id=OIP.TwpUYN61rd2kgZQjgHnYyQHaFz&pid=Api&P=0" alt="" />
                     </div>
                     <ul className={active}>
                         <li className="nav__item">

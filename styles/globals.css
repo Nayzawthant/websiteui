@@ -945,6 +945,15 @@ hr {
   cursor: pointer;
 }
 
+.header-main-img {
+  width: 70px;
+  height: 40px;
+}
+
+.header-main-img img {
+  width: 100%;
+}
+
 .header-home {
   position: relative;
   color: #0068f9;
@@ -974,6 +983,11 @@ hr {
   background-color: #00c851;
   z-index: 10;
   transition: all 0.5s ease;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
 }
 
 .nav__link:hover:before {
@@ -1149,7 +1163,7 @@ li {
 
   .nav__menu {
     position: fixed;
-    top: 9.9vh;
+    top: 13.9vh;
     right: 0;
     height: 63vh;
     width: 100%;
