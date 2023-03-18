@@ -946,12 +946,20 @@ hr {
 }
 
 .header-main-img {
-  width: 70px;
+  width: 100px;
+  display: flex;
+  align-items: center;
   height: 40px;
 }
 
 .header-main-img img {
-  width: 100%;
+  width: 50%;
+  margin-right: 10px;
+}
+
+.header-main-img span {
+  color: #333333;
+  font-size: 20px;
 }
 
 .header-home {
