@@ -4119,6 +4119,10 @@ li {
     width: 90%;
   }
 
+  .cate-right {
+    margin-bottom: 20px;
+  }
+
 } 
 
 @media screen and (max-width: 280px) {
