@@ -4038,6 +4038,19 @@ li {
     width: 90%;
     padding: 0px;
   }
+
+  .nav__menu {
+    position: fixed;
+    top: 11.4vh;
+    right: 0;
+    height: 63vh;
+    width: 100%;
+    background: #808191;
+    display: block;
+    transform: translateX(100%);
+    transition: 0.5s ease-in;
+    z-index: 999;
+  }
   .postabout-header {
     font-size: 20px;
   }
