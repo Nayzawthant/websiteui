@@ -15,6 +15,33 @@
   box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
 }
 
+.prev-button,
+.next-button {
+  position: absolute;
+  top: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform: translateY(-50%);
+  background-color: #000;
+  color: #fff;
+  padding: 15px 15px;
+  text-align: center;
+  border: none;
+  border-radius: 50px;
+  font-size: 16px;
+  cursor: pointer;
+  z-index: 100;
+}
+
+.prev-button {
+  left: 40px;
+}
+
+.next-button {
+  right: 40px;
+}
+
 /* Topbar */
 
 .topbar {
@@ -1171,7 +1198,7 @@ li {
 
   .nav__menu {
     position: fixed;
-    top: 11.4vh;
+    top: 11.9vh;
     right: 0;
     height: 63vh;
     width: 100%;
@@ -4039,7 +4066,18 @@ li {
     padding: 0px;
   }
 
-  
+  .nav__menu {
+    position: fixed;
+    top: 11.4vh;
+    right: 0;
+    height: 63vh;
+    width: 100%;
+    background: #808191;
+    display: block;
+    transform: translateX(100%);
+    transition: 0.5s ease-in;
+    z-index: 999;
+  }
   .postabout-header {
     font-size: 20px;
   }

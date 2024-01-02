@@ -1,4 +1,5 @@
-import React, { useState , useEffect} from 'react'
+
+import React, { useState, useEffect, useRef } from 'react'
 import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
 import InsertCommentIcon from '@mui/icons-material/InsertComment';
 import axios from 'axios';
@@ -13,20 +14,20 @@ import TwitterIcon from '@mui/icons-material/Twitter';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import SmartToyIcon from '@mui/icons-material/SmartToy';
 import InstagramIcon from '@mui/icons-material/Instagram';
-import ImageOutlinedIcon from '@mui/icons-material/ImageOutlined';
-import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import InputEmoji from "react-input-emoji";
 import PreviewOutlinedIcon from '@mui/icons-material/PreviewOutlined';
-import WhatsAppIcon from '@mui/icons-material/WhatsApp';
-import LinkedInIcon from '@mui/icons-material/LinkedIn';
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
+import { MdArrowBackIos, MdArrowForwardIos } from 'react-icons/md';
 import Link from 'next/link';
 import Image from 'next/image';
 import RelatedPost from '@/components/relatedpost/RelatedPost';
 import PopularPost from '@/components/popularpost/PopularPost';
 import Search from '@/components/searchpage/Search';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/swiper-bundle.css';
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
 
 const Details = ({ post, allPost, allCategory, allComment, resSearchPost }) => {
     const [noOfElement, setNoOfElement] = useState(3);
@@ -42,122 +43,18 @@ const Details = ({ post, allPost, allCategory, allComment, resSearchPost }) => {
     console.log(allComment)
     console.log(comment)
 
-    var settings = {
-        slidesToShow: 2.99,
-        slidesToScroll: 1,
-        autoplay: true,
-        autoplaySpeed: 3000,
-        responsive: [
-            {
-                breakpoint: 1500,
-                settings: {
-                    slidesToShow: 0.999,
-                    slidesToScroll: 1,
-                    infinite: true,
-                    dots: true
-                }
-            },
-            {
-                breakpoint: 1400,
-                settings: {
-                    slidesToShow: 1.999,
-                    slidesToScroll: 1,
+    const swiperRef = useRef(null);
 
-                }
-            },
+    const handleNext = () => {
+        if (swiperRef.current && swiperRef.current.swiper) {
+            swiperRef.current.swiper.slideNext();
+        }
+    };
 
-            {
-                breakpoint: 1300,
-                settings: {
-                    slidesToShow: 1.999,
-                    slidesToScroll: 1,
-
-                }
-            },
-
-            {
-                breakpoint: 1200,
-                settings: {
-                    slidesToShow: 1.999,
-                    slidesToScroll: 1,
-
-                }
-            },
-
-            {
-                breakpoint: 1100,
-                settings: {
-                    slidesToShow: 1.999,
-                    slidesToScroll: 1,
-
-                }
-            },
-
-            {
-                breakpoint: 1000,
-                settings: {
-                    slidesToShow: 1.999,
-                    slidesToScroll: 1,
-
-                }
-            },
-
-            {
-                breakpoint: 900,
-                settings: {
-                    slidesToShow: 0.999,
-                    slidesToScroll: 1,
-
-                }
-            },
-
-            {
-                breakpoint: 800,
-                settings: {
-                    slidesToShow: 0.999,
-                    slidesToScroll: 1,
-
-                }
-            },
-
-            {
-                breakpoint: 700,
-                settings: {
-                    slidesToShow: 0.999,
-                    slidesToScroll: 1,
-
-                }
-            },
-            {
-                breakpoint: 600,
-                settings: {
-                    slidesToShow: 1,
-                    slidesToScroll: 0.999,
-                }
-            },
-            {
-                breakpoint: 580,
-                settings: {
-                    slidesToShow: 0.999,
-                    slidesToScroll: 1,
-
-                }
-            },
-            {
-                breakpoint: 480,
-                settings: {
-                    slidesToShow: 1,
-                    slidesToScroll: 1
-                }
-            },
-            {
-                breakpoint: 380,
-                settings: {
-                    slidesToShow: 0.999,
-                    slidesToScroll: 1
-                }
-            }
-        ]
+    const handlePrev = () => {
+        if (swiperRef.current && swiperRef.current.swiper) {
+            swiperRef.current.swiper.slidePrev();
+        }
     };
 
     const addhandel = () => {
@@ -177,20 +74,20 @@ const Details = ({ post, allPost, allCategory, allComment, resSearchPost }) => {
         setComment({ ...comment, desc: e })
     }
 
-   
+
     const viewPost = async () => {
         try {
             const viewPost = await (await axios.get(API_URL + `v1/posts/public/latest_posts/?sortBy=viewCounts:desc&limit=${noOfElement}`)).data
             setAllView(viewPost);
-        } catch(error) {
+        } catch (error) {
             console.log(error)
         }
     }
 
-     useEffect(() => {
+    useEffect(() => {
         viewPost()
-    },[noOfElement])
- 
+    }, [noOfElement])
+
     const readMore = () => {
         if (noOfElement < 9) {
             setNoOfElement(prev => prev + 3)
@@ -258,17 +155,37 @@ const Details = ({ post, allPost, allCategory, allComment, resSearchPost }) => {
                                 <CreateIcon className='content-icon' />Labels
                                 <span className="content-span">#{post?.category.name}</span>
                             </div>
-                            <Slider {...settings} className='slider' >
+                            <Swiper
+                                ref={swiperRef}
 
-                                {
+                                autoplay={{
+                                    delay: 2000, // Adjust the delay value as needed
+                                    disableOnInteraction: false, // Allow autoplay even when user interacts with the slider
+                                }}
+                                spaceBetween={0}
+                                slidesPerView={3}
+
+
+                            >
+                               {
                                     allPost?.results?.map((item, index) => {
                                         return (
-                                            <RelatedPost item={item} key={index} />
+                                            <SwiperSlide key={index}>
+                                                <RelatedPost item={item}  />
+                                            </SwiperSlide>
                                         )
                                     })
                                 }
-                            </Slider>
 
+                                <button className="prev-button" onClick={handlePrev}>
+                                    <MdArrowBackIos />
+                                </button>
+                                <button className="next-button" onClick={handleNext}>
+                                    <MdArrowForwardIos />
+                                </button>
+
+
+                            </Swiper>
 
                             <div className="related-share">
                                 <div className="related-time">
@@ -403,7 +320,7 @@ const Details = ({ post, allPost, allCategory, allComment, resSearchPost }) => {
                                         )
                                     })
                                 }
-                                <div className='read-more-button' style={{display: noOfElement === 9 ? 'none' : "block"}} onClick={readMore}>readmore</div>
+                                <div className='read-more-button' style={{ display: noOfElement === 9 ? 'none' : "block" }} onClick={readMore}>readmore</div>
                             </div>
 
 
@@ -422,7 +339,7 @@ export const getServerSideProps = async ({ params }) => {
     const res = await (await axios.get(API_URL + `v1/posts/public/latest_posts/${params.id}`)).data
     const resView = await (await axios.patch(API_URL + `v1/posts/public/latest_posts/${params.id}`)).data
     const allComments = await (await axios.get(API_URL + 'v1/comments')).data
-    
+
     const allCategoryStyle = await (await axios.get(API_URL + `v1/posts/public/latest_posts/?category=${res.category.id}`)).data
 
     return {

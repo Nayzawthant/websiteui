@@ -10,7 +10,6 @@ import { format } from 'timeago.js';
 const RelatedPost = ({ item }) => {
     return (
         
-
                 <div className="related-post-inner">
                     <div className='related_Image'>
                     <figure className="related-card-img">
